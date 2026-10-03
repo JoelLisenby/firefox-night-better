@@ -6,7 +6,7 @@ Pair it with the [Night Neutral](https://github.com/JoelLisenby/firefox-night-ne
 
 AMO listing: [Night Better](https://addons.mozilla.org/firefox/addon/night-better/) (name cannot include the Firefox trademark).
 
-Chrome-only and theme+chrome installs are in the [better-firefox gist](https://gist.github.com/JoelLisenby).
+Chrome-only and theme+chrome installs are in the [better-firefox gist](https://gist.github.com/JoelLisenby/e8bb1dfa7fb2fef3377617b86e3de14b).
 
 ## What it does
 
