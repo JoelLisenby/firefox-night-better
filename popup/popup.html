@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../ui.css" />
+  </head>
+  <body>
+    <section class="panel">
+      <div class="row">
+        <div>
+          <h1>Proxy</h1>
+          <p class="hint" id="proxy-summary">Off</p>
+        </div>
+        <label class="switch">
+          <input id="proxy-enabled" type="checkbox" />
+          <span id="proxy-label">Off</span>
+        </label>
+      </div>
+      <p class="notice" id="proxy-private-notice" hidden>
+        Proxy is turned off until you allow Night Better in Private Windows.
+        Firefox uses one proxy setting for normal and private windows, so the
+        add-on is not allowed to change it without that permission.
+        <br /><br />
+        Type about:addons in the address bar. Next to Night Better, open
+        ... → Manage. Set Run in Private Windows to Allow. Firefox blocks
+        add-ons from opening that page. Temporary add-ons need this granted
+        again after each load.
+      </p>
+      <button id="open-addons" type="button" hidden>
+        Copy about:addons
+      </button>
+      <p class="status error" id="proxy-error" hidden></p>
+      <dl class="proxy-details" id="proxy-details" hidden></dl>
+      <p class="hint" id="proxy-hint">
+        Turns your current Firefox proxy on and off. Host, port, PAC, and type
+        load from the settings you already had. Edit them on the options page;
+        Firefox Connection Settings stays locked while Night Better owns the
+        proxy.
+      </p>
+      <button id="open-proxy" type="button">Edit proxy settings</button>
+    </section>
+
+    <section class="panel">
+      <button id="open-options" type="button">Chrome CSS setup</button>
+      <p class="hint">
+        Opens the options page. You paste userChrome.css into your profile;
+        the add-on cannot apply it by itself.
+      </p>
+    </section>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

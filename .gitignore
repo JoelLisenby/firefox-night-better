@@ -1,0 +1,5 @@
+dist/
+web-ext-artifacts/
+.amo-credentials
+*.jwt
+.amo-upload-uuid

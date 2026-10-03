@@ -1,0 +1,26 @@
+/* Firefox Better — 0% (square) corners on built-in Firefox pages (about:, settings).
+   The options page generates this at the current slider value. */
+
+@-moz-document url-prefix("about:"), url-prefix("chrome:") {
+  :root {
+    --border-radius-xsmall: 0 !important;
+    --border-radius-small: 0 !important;
+    --border-radius-medium: 0 !important;
+    --border-radius-large: 0 !important;
+    --border-radius-xlarge: 0 !important;
+    --border-radius-circle: 0 !important;
+    --button-border-radius: 0 !important;
+    --input-text-border-radius: 0 !important;
+    --card-border-radius: 0 !important;
+    --card-border-radius-compact: 0 !important;
+  }
+
+  button,
+  input,
+  select,
+  textarea,
+  .card,
+  .toggle-button {
+    border-radius: 0 !important;
+  }
+}

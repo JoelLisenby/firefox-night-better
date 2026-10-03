@@ -1,0 +1,178 @@
+/* Firefox Better — Nova stays on.
+   Tighter tabs, solid dark top bar, hide Share Firefox.
+   Corner radius is prepended by Night Better from the options slider
+   (0 square … 100 Nova). Profile folder → chrome/userChrome.css
+   about:config → toolkit.legacyUserProfileCustomizations.stylesheets = true
+*/
+
+/* firefox-better:tight-tabs
+   Nova default is 6px above/below (--tab-margin-block) and 8px inner
+   padding. Overflow-clip padding is the gap between horizontal tabs. */
+:root {
+  --tab-margin-block: 1px !important;
+  --tab-vertical-block-margin: 1px !important;
+  --tab-overflow-clip-margin: 1px !important;
+  --tab-margin-overflow-clip: 1px !important;
+  --tab-inline-padding: 6px !important;
+  --tab-padding-inline: 6px !important;
+  --tab-inner-inline-margin: 2px !important;
+  --tab-margin-inline-inner: 2px !important;
+}
+
+.tabbrowser-tab {
+  padding-inline: var(--tab-overflow-clip-margin) !important;
+}
+
+.tab-background {
+  margin-block: var(--tab-margin-block) !important;
+}
+
+/* firefox-better:dark-topbar
+   Solid near-black chrome. Hover / selected / open is a small lift
+   off black so the current control reads without going light gray. */
+:root {
+  --fb-chrome-bg: #000000;
+  --fb-hover-bg: #1c1c1c;
+  --fb-active-bg: #2a2a2a;
+  --fb-menu-bg: #1a1a1a;
+  --fb-menu-hover: #3a3a3a;
+  --fb-on-dark: #ececec;
+
+  --toolbox-background-color: var(--fb-chrome-bg) !important;
+  --toolbox-background-color-inactive: var(--fb-chrome-bg) !important;
+  --toolbox-background-color-gradient-leading: var(--fb-chrome-bg) !important;
+  --toolbox-background-color-gradient-trailing: var(--fb-chrome-bg) !important;
+  --toolbox-background-gradient: none !important;
+  --toolbox-background-image: none !important;
+  --lwt-additional-images: none !important;
+  --lwt-header-image: none !important;
+  --lwt-accent-color: var(--fb-chrome-bg) !important;
+  --lwt-accent-color-inactive: var(--fb-chrome-bg) !important;
+  --toolbar-background-color: var(--fb-chrome-bg) !important;
+
+  --tab-background-color-hover: var(--fb-hover-bg) !important;
+  --tab-background-color-selected: var(--fb-active-bg) !important;
+  --tab-text-color-hover: var(--fb-on-dark) !important;
+  --tab-text-color-selected: var(--fb-on-dark) !important;
+  --lwt-selected-tab-background-color: var(--fb-active-bg) !important;
+  --tab-border-color-accent: #333333 !important;
+  --tab-border-color-selected: #333333 !important;
+  --tab-border-color-selected-leading: #333333 !important;
+  --tab-border-color-selected-trailing: #333333 !important;
+  --tab-close-button-text-color-hover: var(--fb-on-dark) !important;
+  --tab-close-button-text-color-active: var(--fb-on-dark) !important;
+
+  --toolbarbutton-hover-background: var(--fb-hover-bg) !important;
+  --toolbarbutton-active-background: var(--fb-active-bg) !important;
+  --toolbarbutton-background-color-hover: var(--fb-hover-bg) !important;
+  --toolbarbutton-background-color-active: var(--fb-active-bg) !important;
+  --button-background-color-hover: var(--fb-hover-bg) !important;
+  --button-background-color-active: var(--fb-active-bg) !important;
+  --button-background-color-ghost-hover: var(--fb-menu-hover) !important;
+  --button-background-color-ghost-active: var(--fb-menu-hover) !important;
+  --button-background-color-menu-selected: var(--fb-menu-hover) !important;
+  --arrowpanel-background: var(--fb-menu-bg) !important;
+  --panel-background: var(--fb-menu-bg) !important;
+  --menu-background-color: var(--fb-menu-bg) !important;
+  --arrowpanel-menuitem-hover-background-color: var(--fb-menu-hover) !important;
+  --panel-item-hover-bgcolor: var(--fb-menu-hover) !important;
+  --button-text-color-hover: var(--fb-on-dark) !important;
+  --button-text-color-active: var(--fb-on-dark) !important;
+  --button-text-color-ghost-hover: var(--fb-on-dark) !important;
+  --button-text-color-ghost-active: var(--fb-on-dark) !important;
+
+  --urlbar-box-background-color-hover: var(--fb-hover-bg) !important;
+  --urlbar-box-background-color-active: var(--fb-active-bg) !important;
+  --urlbar-box-text-color-hover: var(--fb-on-dark) !important;
+  --urlbar-box-text-color-active: var(--fb-on-dark) !important;
+}
+
+body,
+#navigator-toolbox,
+#navigator-toolbox.fullscreen-floating-toolbox,
+#titlebar,
+#TabsToolbar,
+#toolbar-menubar,
+#nav-bar,
+#PersonalToolbar,
+#notifications-toolbar {
+  background-color: var(--fb-chrome-bg) !important;
+  background-image: none !important;
+}
+
+.tab-background:is([selected], [visuallyselected], [multiselected]) {
+  --tab-border-color-accent: #333333 !important;
+  background-color: var(--fb-active-bg) !important;
+}
+
+.tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected], [multiselected]) {
+  background-color: var(--fb-hover-bg) !important;
+}
+
+.tab-content:is([selected], [multiselected]),
+.tabbrowser-tab:hover > .tab-stack > .tab-content {
+  color: var(--fb-on-dark) !important;
+}
+
+.tabbrowser-tab:is(:hover, [selected], [visuallyselected], [multiselected]) .tab-close-button {
+  color: var(--fb-on-dark) !important;
+  fill: var(--fb-on-dark) !important;
+}
+
+toolbar .toolbarbutton-1:not([disabled]):is(:hover, [open], [checked]),
+toolbarbutton.bookmark-item:not(.subviewbutton, [disabled]):is(:hover, [open]),
+#tabs-newtab-button:not([disabled]):is(:hover, [open]),
+#vertical-tabs-newtab-button:not([disabled]):is(:hover, [open]) {
+  --toolbarbutton-icon-fill: var(--fb-on-dark) !important;
+  color: var(--fb-on-dark) !important;
+  fill: var(--fb-on-dark) !important;
+}
+
+#urlbar .urlbar-page-action:not([disabled]):is(:hover, [open]),
+#urlbar .identity-box-button:is(:hover, [open]),
+#tracking-protection-icon-container:is(:hover, [open]),
+#page-action-buttons > .urlbar-icon:is(:hover, [open]) {
+  color: var(--fb-on-dark) !important;
+  fill: var(--fb-on-dark) !important;
+}
+
+/* Bookmark bar and other XUL/panel menus sit on --fb-menu-bg, which is
+   already lighter than the black toolbar. Hover must lift further. */
+menupopup,
+#PlacesToolbar menupopup,
+#BMB_bookmarksPopup,
+#bookmarksMenuPopup,
+panel[type="arrow"],
+panelview {
+  --panel-background: var(--fb-menu-bg) !important;
+  --arrowpanel-background: var(--fb-menu-bg) !important;
+  background-color: var(--fb-menu-bg) !important;
+}
+
+menupopup > menu[_moz-menuactive="true"],
+menupopup > menuitem[_moz-menuactive="true"],
+menupopup > menucaption[_moz-menuactive="true"] {
+  background-color: var(--fb-menu-hover) !important;
+  color: var(--fb-on-dark) !important;
+}
+
+panelview .subviewbutton:not([disabled]):is(:hover, [open], [checked], [selected]),
+.panel-subview-body .subviewbutton:not([disabled]):is(:hover, [open]) {
+  background-color: var(--fb-menu-hover) !important;
+  color: var(--fb-on-dark) !important;
+}
+
+/* firefox-better:hide-share
+   Share Firefox sits next to About / updates in the app menu. */
+#appMenu-referrals-button,
+#appMenu-referrals-separator,
+#appMenu_menu_referralsPage,
+#PanelUI-fxa-menu-share-firefox,
+#share-tab-button,
+#referrals-button,
+toolbarbutton[data-l10n-id="appmenuitem-referrals"],
+toolbarbutton[data-l10n-id="appmenu-referrals2"],
+toolbarbutton[data-l10n-id="appmenuitem-share-firefox-title2"],
+.share-tab-url-item {
+  display: none !important;
+}

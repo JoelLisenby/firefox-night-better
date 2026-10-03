@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Night Better</title>
+    <link rel="stylesheet" href="../ui.css" />
+    <style>
+      body {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 24px 16px 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Night Better</h1>
+    <p class="hint">
+      Night Neutral is a separate theme add-on. This page edits the Firefox
+      proxy (loaded from your current settings) and ships the chrome CSS the
+      extension cannot apply by itself.
+    </p>
+
+    <h2 id="proxy">Connection Settings</h2>
+    <p class="hint" id="proxy-summary">Off</p>
+    <p class="hint">
+      These fields load from your current Firefox proxy. Night Better does not
+      write them until you change a control. Firefox Connection Settings stays
+      locked while this add-on owns the proxy, so this form is the editor.
+    </p>
+    <p class="notice" id="proxy-private-notice" hidden>
+      Proxy controls are disabled until you allow Night Better in Private
+      Windows. Firefox uses one proxy setting for normal and private windows,
+      so the add-on cannot change it without that permission.
+      Type about:addons in the address bar. Next to Night Better, open
+      ... → Manage. Set Run in Private Windows to Allow. Firefox blocks
+      add-ons from opening that page. Temporary add-ons need this granted
+      again after each load. Your current values still show below.
+    </p>
+    <p class="stack" id="open-addons-wrap" hidden style="margin-top: 8px">
+      <button id="open-addons" type="button">Copy about:addons</button>
+    </p>
+    <p class="status error" id="proxy-error" hidden></p>
+    <label class="switch" style="margin: 12px 0">
+      <input id="proxy-enabled" type="checkbox" />
+      <span id="proxy-label">Off</span>
+    </label>
+    <p class="hint" id="proxy-hint">
+      On/Off is the same as the toolbar switch. It keeps host, port, PAC, and
+      bypass, and only changes the type between No proxy and your last type.
+    </p>
+
+    <form id="proxy-form" novalidate hidden>
+      <fieldset id="proxy-config">
+        <legend>Configure Proxy Access to the Internet</legend>
+
+        <label class="choice">
+          <input type="radio" name="proxyType" value="none" />
+          No proxy
+        </label>
+        <label class="choice">
+          <input type="radio" name="proxyType" value="system" />
+          Use system proxy settings
+        </label>
+        <label class="choice">
+          <input type="radio" name="proxyType" value="autoDetect" />
+          Auto-detect proxy settings for this network
+        </label>
+        <label class="choice">
+          <input type="radio" name="proxyType" value="manual" />
+          Manual proxy configuration
+        </label>
+
+        <div class="indent" id="manual-fields">
+          <div class="host-row">
+            <label for="http-host">HTTP Proxy</label>
+            <input id="http-host" name="httpHost" type="text" autocomplete="off" spellcheck="false" />
+            <label for="http-port">Port</label>
+            <input id="http-port" name="httpPort" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" />
+          </div>
+          <label class="choice">
+            <input id="http-proxy-all" name="httpProxyAll" type="checkbox" />
+            Also use this proxy for HTTPS
+          </label>
+          <div class="host-row" id="https-row">
+            <label for="ssl-host">HTTPS Proxy</label>
+            <input id="ssl-host" name="sslHost" type="text" autocomplete="off" spellcheck="false" />
+            <label for="ssl-port">Port</label>
+            <input id="ssl-port" name="sslPort" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="host-row">
+            <label for="socks-host">SOCKS Host</label>
+            <input id="socks-host" name="socksHost" type="text" autocomplete="off" spellcheck="false" />
+            <label for="socks-port">Port</label>
+            <input id="socks-port" name="socksPort" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="choice-row">
+            <label class="choice">
+              <input type="radio" name="socksVersion" value="4" />
+              SOCKS v4
+            </label>
+            <label class="choice">
+              <input type="radio" name="socksVersion" value="5" />
+              SOCKS v5
+            </label>
+          </div>
+          <div class="field">
+            <label for="passthrough">No proxy for</label>
+            <input id="passthrough" name="passthrough" type="text" autocomplete="off" spellcheck="false" />
+            <p class="hint">Example: .mozilla.org, .net.nz, 192.168.1.0/24</p>
+            <p class="hint">
+              Connections to localhost, 127.0.0.1/8, and ::1 are never proxied.
+            </p>
+          </div>
+        </div>
+
+        <label class="choice">
+          <input type="radio" name="proxyType" value="autoConfig" />
+          Automatic proxy configuration URL
+        </label>
+        <div class="pac-row indent" id="pac-fields">
+          <input
+            id="auto-config-url"
+            name="autoConfigUrl"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Automatic proxy configuration URL"
+          />
+          <button id="proxy-reload" type="button">Reload</button>
+        </div>
+
+        <label class="choice">
+          <input id="auto-login" name="autoLogin" type="checkbox" />
+          Do not prompt for authentication if password is saved
+        </label>
+        <label class="choice">
+          <input id="proxy-dns" name="proxyDNS" type="checkbox" />
+          <span id="proxy-dns-label">Proxy DNS when using SOCKS v5</span>
+        </label>
+        <p class="hint">
+          Firefox Connection Settings has separate SOCKS v4 and v5 DNS boxes.
+          The add-on API has one Proxy DNS flag, so this checkbox is that flag.
+        </p>
+      </fieldset>
+    </form>
+    <dl class="proxy-details" id="proxy-details" hidden></dl>
+
+    <h2 id="chrome">Chrome CSS</h2>
+    <p>
+      Night Neutral follows the official theme keys. Those keys do not include
+      border radius or toolbox layout, so Nova’s rounding, tab padding, and
+      purple top-bar gradient stay unless you install userChrome.css. Leave
+      <code>browser.nova.enabled</code> on. The CSS also tightens tab spacing,
+      paints the top bar solid <code>#000000</code>, and lifts the current
+      tab and hover/active chrome just off black.
+    </p>
+    <div class="field">
+      <label for="radius-scale">Corner radius</label>
+      <div class="radius-controls">
+        <span class="hint">0</span>
+        <input id="radius-scale" type="range" min="0" max="100" value="0" />
+        <span class="hint">Nova</span>
+        <input
+          id="radius-value"
+          type="number"
+          min="0"
+          max="100"
+          value="0"
+          aria-label="Corner radius percent"
+        />
+      </div>
+      <p class="hint">
+        0 is square. 100 is Nova’s default rounding. Copy userChrome.css
+        after you change this, then restart Firefox.
+      </p>
+    </div>
+    <ol>
+      <li>
+        Open <code>about:config</code>, set
+        <code>toolkit.legacyUserProfileCustomizations.stylesheets</code> to
+        <code>true</code>.
+      </li>
+      <li>
+        Open <code>about:support</code> → Profile Folder → Open Folder.
+      </li>
+      <li>Create a folder named <code>chrome</code> if it is missing.</li>
+      <li>
+        Paste the CSS below into <code>userChrome.css</code>. For Settings and
+        other <code>about:</code> pages, also paste the userContent.css block
+        into <code>userContent.css</code>.
+      </li>
+      <li>Restart Firefox.</li>
+    </ol>
+    <div class="stack" style="margin-top: 12px">
+      <button id="copy-chrome" type="button">Copy userChrome.css</button>
+      <button id="copy-content" type="button">Copy userContent.css</button>
+    </div>
+    <p class="status" id="copy-status" hidden></p>
+    <div class="field">
+      <label for="user-chrome">userChrome.css</label>
+      <textarea id="user-chrome" class="css" spellcheck="false"></textarea>
+    </div>
+    <div class="field">
+      <label for="user-content">userContent.css</label>
+      <textarea id="user-content" class="css" spellcheck="false"></textarea>
+    </div>
+
+    <h2>Share Firefox</h2>
+    <p>
+      Share Firefox sits in the app menu next to About Firefox. The
+      userChrome.css above hides those Share items. You can also set
+      <code>browser.referrals.enabled</code> to <code>false</code> in
+      <code>about:config</code>.
+    </p>
+    <script src="options.js"></script>
+  </body>
+</html>
