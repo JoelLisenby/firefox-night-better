@@ -147,12 +147,11 @@
 
     <h2 id="chrome">Chrome CSS</h2>
     <p>
-      Night Neutral follows the official theme keys. Those keys do not include
-      border radius or toolbox layout, so Nova’s rounding, tab padding, and
-      purple top-bar gradient stay unless you install userChrome.css. Leave
-      <code>browser.nova.enabled</code> on. The CSS also tightens tab spacing,
-      paints the top bar solid <code>#000000</code>, and lifts the current
-      tab and hover/active chrome just off black.
+      Static themes set chrome colors (frame, toolbar, tabs, popups). They
+      cannot set border radius, tab spacing, or hide Share Firefox. This CSS
+      is layout only: it leaves theme colors alone. Leave
+      <code>browser.nova.enabled</code> on. Pair with Night Neutral (or any
+      other theme) for the palette.
     </p>
     <div class="field">
       <label for="radius-scale">Corner radius</label>

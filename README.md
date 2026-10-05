@@ -1,6 +1,6 @@
 # Night Better
 
-Firefox 157 (Nova) add-on: a toolbar switch for the proxy you already set, plus helpers for copying chrome CSS (tighter tabs, a solid black top bar, adjustable Nova corners, hide Share Firefox).
+Firefox 157 (Nova) add-on: a toolbar switch for the proxy you already set, plus helpers for copying chrome CSS (tighter tabs, adjustable Nova corners, hide Share Firefox). Chrome colors come from the active theme.
 
 Pair it with the [Night Neutral](https://github.com/JoelLisenby/firefox-night-neutral) theme. Firefox treats a static theme and an extension as two packages.
 
@@ -40,7 +40,7 @@ Temporary add-ons go away when Firefox restarts.
 1. `about:config` → `toolkit.legacyUserProfileCustomizations.stylesheets` → `true`.
 2. `about:support` → Profile Folder → Open Folder.
 3. Create `chrome` if it is missing.
-4. Copy `userChrome.css` from the options page into that folder (or copy `chrome/userChrome.css` and prepend the radius block from options).
+4. Copy `userChrome.css` from the options page into that folder (or copy `chrome/userChrome.css`; square corners are already in that file).
 5. Optional: copy `userContent.css` from the options page for the same radius on Settings and other `about:` pages.
 6. Restart Firefox.
 
@@ -50,10 +50,8 @@ That stylesheet:
 
 - Scales Nova radius tokens to the slider value (tabs, urlbar, panels, buttons).
 - Shrinks tab padding above, below, and between tabs.
-- Replaces Nova’s violet→orange toolbox gradient with solid `#000000`.
-- Lifts the current tab, hovered tabs, and hovered/open toolbar buttons just off black (`#2a2a2a` / `#1c1c1c`) with light text.
-- Bookmark and panel menus use `#1a1a1a` with hover `#3a3a3a`.
 - Hides Share Firefox.
+- Leaves chrome colors to the active theme. Frame, toolbar, tabs, and popups come from Night Neutral (or whichever theme you use).
 
 Leave `browser.nova.enabled` on.
 

@@ -1,5 +1,6 @@
-/* Firefox Better — 0% (square) corners on built-in Firefox pages (about:, settings).
-   The options page generates this at the current slider value. */
+/* Night Better — 0% (square) corners on built-in Firefox pages (about:, settings).
+   Colors come from the active theme. The options slider rewrites this
+   block when you copy from the options page. */
 
 @-moz-document url-prefix("about:"), url-prefix("chrome:") {
   :root {

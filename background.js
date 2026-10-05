@@ -57,9 +57,12 @@ function novaPx(token, scale) {
   return Math.round((NOVA_RADIUS[token] * scale) / RADIUS_MAX);
 }
 
+const CORNERS_START = "/* firefox-better:corners-start */";
+const CORNERS_END = "/* firefox-better:corners-end */";
+
 function radiusChromeCss(scale) {
   if (scale >= RADIUS_MAX) {
-    return "";
+    return "/* Nova rounding. No Night Better radius override. */";
   }
 
   const xs = novaPx("xsmall", scale);
@@ -105,9 +108,18 @@ panel,
 .toolbarbutton-icon,
 .toolbarbutton-badge-stack {
   border-radius: ${md}px !important;
+}`;
 }
 
-`;
+function applyRadiusToUserChrome(base, scale) {
+  const inner = radiusChromeCss(scale).trim();
+  const block = `${CORNERS_START}\n${inner}\n${CORNERS_END}`;
+  const start = base.indexOf(CORNERS_START);
+  const end = base.indexOf(CORNERS_END);
+  if (start === -1 || end === -1 || end < start) {
+    return `${block}\n${base}`;
+  }
+  return `${base.slice(0, start)}${block}${base.slice(end + CORNERS_END.length)}`;
 }
 
 function radiusContentCss(scale) {
@@ -575,7 +587,7 @@ browser.runtime.onMessage.addListener(async (message) => {
     const state = await getState();
     const scale = clampRadiusScale(message.radiusScale ?? state.radiusScale);
     const base = await (await fetch(browser.runtime.getURL("chrome/userChrome.css"))).text();
-    const userChrome = `${radiusChromeCss(scale)}${base}`;
+    const userChrome = applyRadiusToUserChrome(base, scale);
     const userContent = radiusContentCss(scale);
     return { userChrome, userContent, radiusScale: scale };
   }
