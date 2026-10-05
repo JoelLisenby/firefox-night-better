@@ -34,6 +34,9 @@
 .urlbar-input-container,
 .tab-background,
 .tab-group-label,
+.tab-group-label-hover-highlight,
+.tab-group-label-container,
+.tab-group-overflow-count,
 toolbarbutton,
 toolbaritem,
 menupopup,
@@ -43,6 +46,17 @@ panel,
 .toolbarbutton-icon,
 .toolbarbutton-badge-stack {
   border-radius: 0px !important;
+}
+
+/* Nova vertical groups set a pill radius, then a logical
+   border-end-start-radius. The shorthand does not clear that. */
+.tab-group-label,
+.tab-group-label-hover-highlight,
+.tab-group-label-container {
+  border-start-start-radius: 0px !important;
+  border-start-end-radius: 0px !important;
+  border-end-start-radius: 0px !important;
+  border-end-end-radius: 0px !important;
 }
 /* firefox-better:corners-end */
 

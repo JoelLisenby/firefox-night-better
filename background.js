@@ -99,6 +99,9 @@ function radiusChromeCss(scale) {
 .urlbar-input-container,
 .tab-background,
 .tab-group-label,
+.tab-group-label-hover-highlight,
+.tab-group-label-container,
+.tab-group-overflow-count,
 toolbarbutton,
 toolbaritem,
 menupopup,
@@ -108,6 +111,15 @@ panel,
 .toolbarbutton-icon,
 .toolbarbutton-badge-stack {
   border-radius: ${md}px !important;
+}
+
+.tab-group-label,
+.tab-group-label-hover-highlight,
+.tab-group-label-container {
+  border-start-start-radius: ${md}px !important;
+  border-start-end-radius: ${md}px !important;
+  border-end-start-radius: ${md}px !important;
+  border-end-end-radius: ${md}px !important;
 }`;
 }
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Night Better",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Toolbar switch for your existing Firefox proxy, plus helpers for adjustable Nova corner radius, tighter tabs, and hiding Share Firefox. Chrome colors come from the active theme.",
   "author": "Joel",
   "icons": {

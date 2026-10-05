@@ -16,8 +16,8 @@
   "version": {
     "license": "MPL-2.0",
     "release_notes": {
-      "en-US": "Chrome CSS is theme-agnostic: colors come from the active theme. Square corners and tighter tabs ship in userChrome.css. Collapsed tab groups no longer leave a 1px strip beside the group label. The options slider still rewrites the corner-radius block when you copy the CSS."
+      "en-US": "Square the leftover rounded corner on vertical tab group labels. Nova sets a logical border-end-start-radius on those labels that border-radius: 0 does not clear."
     },
-    "approval_notes": "Listed 1.6.0. userChrome.css no longer overrides theme colors (frame, toolbar, tabs, popups). It still sets Nova radius tokens, tighter tab spacing, a collapsed tab-group width fix, and hides Share Firefox. The user copies userChrome.css into the profile; the add-on does not inject chrome CSS. Proxy behavior is unchanged. Source in the XPI is the readable add-on tree (no minification)."
+    "approval_notes": "Listed 1.6.1. Same as 1.6.0 plus userChrome.css now zeros logical border-*-radius on .tab-group-label, .tab-group-label-hover-highlight, and .tab-group-label-container so Nova vertical tab groups are square at 0% radius. The user copies userChrome.css into the profile; the add-on does not inject chrome CSS. Proxy behavior is unchanged. Source in the XPI is the readable add-on tree (no minification)."
   }
 }
